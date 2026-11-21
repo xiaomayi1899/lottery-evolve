@@ -12,6 +12,7 @@
   var DLTF = window.LotteryDLTFull;
   var EXTRA = window.LotteryExtra;
   var Charts = window.Charts;
+  var P = window.LotteryPortfolio;
   if (!Core || !F) return;
 
   var L = Core.Lib;
@@ -388,6 +389,29 @@
     window.scrollTo({ top: 0, behavior: 'auto' });
   }
 
+  /* 大众偏好：生日号 / 连号 / 同尾越多，中奖时越可能与别人分摊 */
+  function crowdNote(nums) {
+    if (!nums || nums.length < 2) return '';
+    var birthday = nums.filter(function (n) { return n >= 1 && n <= 31; }).length;
+    var lucky = nums.filter(function (n) { return [6, 8, 9, 16, 18, 28].indexOf(n) !== -1; }).length;
+    var sorted = nums.slice().sort(function (a, b) { return a - b; });
+    var consecutive = 0, i;
+    for (i = 1; i < sorted.length; i++) if (sorted[i] - sorted[i - 1] === 1) consecutive++;
+    var tails = {}, sameTail = 0;
+    nums.forEach(function (n) { tails[n % 10] = (tails[n % 10] || 0) + 1; });
+    Object.keys(tails).forEach(function (t) { if (tails[t] > 1) sameTail += tails[t] - 1; });
+    var score = (birthday / nums.length) * 2 + lucky / nums.length + consecutive * 0.6 + sameTail * 0.5;
+    var level = score >= 2 ? '偏高' : score >= 1.2 ? '中性' : '偏低';
+    var color = score >= 2 ? 'var(--red)' : score >= 1.2 ? 'var(--gold)' : 'var(--green)';
+    return '<div class="crowd-line">' +
+      '<span>大众偏好 <b style="color:' + color + '">' + level + '</b></span>' +
+      '<span>生日号 ' + birthday + '/' + nums.length + '</span>' +
+      '<span>连号 ' + consecutive + ' 组</span>' +
+      '<span>同尾 ' + sameTail + ' 个</span>' +
+      '</div>' +
+      '<p class="hint" style="margin-top:4px">偏好越高，中奖时越可能与他人分摊；这不影响中奖概率。</p>';
+  }
+
   /* ---------------- 推荐页 ---------------- */
   function renderHome() {
     var m = meta(state.game);
@@ -454,7 +478,13 @@
     });
 
     var rateText;
-    if ((state.game === 'ssq' || state.game === 'dlt') && zones.length === 2) {
+    var rvStats = state.review && state.review.games && state.review.games[state.game] &&
+      state.review.games[state.game].stats;
+    if (rvStats) {
+      /* 直接对照随机期望：这是唯一诚实的口径，避免把 19% 误读成「命中率低」 */
+      rateText = '每注命中 <b>' + rvStats.avgHit.toFixed(2) + '</b> · 随机期望 <b>' +
+        rvStats.randomExpect.toFixed(2) + '</b> · ' + rvStats.n + ' 期复盘';
+    } else if ((state.game === 'ssq' || state.game === 'dlt') && zones.length === 2) {
       rateText = m.front.label + '命中率 <b>' + pct(baseResults[0].res.stats.avgRate) + '</b>' +
         ' · ' + m.back.label + ' <b>' + pct(baseResults[1].res.stats.avgRate) + '</b>';
     } else if (state.game === 'kl8') {
@@ -498,10 +528,11 @@
 
       '<section class="card">' +
       '<div class="card-title">号码结构 <span class="sub">' + structureSub + '</span></div>' +
-      structure + repeatHint +
+      structure + repeatHint + crowdNote(results[0].res.numbers) +
       '</section>' +
 
       '<section class="card" id="vote-card">' + voteCardHTML() + '</section>' +
+      coverageCardHTML() +
 
       '<section class="card">' +
       '<div class="card-title">关键公式 <span class="sub">按回测权重</span></div>' +
@@ -986,6 +1017,47 @@
     });
     var empty = document.getElementById('formula-empty');
     if (empty) empty.style.display = shown ? 'none' : 'block';
+  }
+
+  /* ---------------- 覆盖卡片 ---------------- */
+  function coverageCardHTML() {
+    if (!P) return '';
+    var m = meta(state.game);
+    var zones = m.ticketZones;
+    var zone = zones[0];
+    var cfg = m[zone];
+
+    if (cfg.pick < 2) {
+      var posScores = zones.map(function (z) {
+        var r = analysis(state.game, z, 0);
+        var arr = r.ranking.map(function (x, i) { return { n: x.n, score: r.ranking.length - i }; });
+        return arr;
+      });
+      var dts = P.digitTickets(posScores, 3);
+      return '<section class="card"><div class="card-title">3 注覆盖 <span class="sub">每位前 3 名轮转</span></div>' +
+        '<div class="lab-tickets">' + dts.map(function (t, i) {
+          return '<div class="lab-ticket"><span class="lab-ticket-no">' + (i + 1) + '</span>' +
+            t.map(function (n, k) { return ball(n, m[zones[k]].color, { size: 'mini', digit: true }); }).join('') +
+            '</div>';
+        }).join('') + '</div>' +
+        '<p class="hint">同样的预算，3 注覆盖每位前 3 名，而不是 3 注重复同一组数字。</p></section>';
+    }
+
+    var res = analysis(state.game, zone, 0);
+    var scores = {};
+    res.ranking.forEach(function (r, i) { scores[r.n] = res.ranking.length - i; });
+    var tickets = P.build(cfg, scores, 3);
+    var cov = P.coverage(tickets, cfg);
+    return '<section class="card"><div class="card-title">3 注缩水覆盖 <span class="sub">同样的钱，覆盖更多号</span></div>' +
+      '<div class="lab-tickets">' + tickets.map(function (t, i) {
+        return '<div class="lab-ticket"><span class="lab-ticket-no">' + (i + 1) + '</span>' + labTicket(t, cfg, 'mini') + '</div>';
+      }).join('') + '</div>' +
+      '<div class="cov-stats">' +
+      '<span>3 注覆盖 <b>' + cov.coveredNumbers + '</b>/' + cov.poolSize + ' 个号</span>' +
+      '<span>注间平均重合 <b>' + cov.avgOverlap + '</b> 个</span>' +
+      '<span>单注只能覆盖 <b>' + cfg.pick + '</b> 个</span>' +
+      '</div>' +
+      '<p class="hint">每注中奖概率完全相同；缩水只是让你在同样预算下覆盖更多号码形态，而不是 3 注押在同一批号上。</p></section>';
   }
 
   /* ---------------- 实验室页 ---------------- */
