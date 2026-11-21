@@ -178,13 +178,6 @@
     return strategies;
   };
 
-  /* 按 |z| 排序，detectable 优先 */
-  Lab.rank = function (strategies) {
-    return strategies.slice().sort(function (a, b) {
-      return Math.abs(b.z) - Math.abs(a.z);
-    });
-  };
-
   /* ---------------- 组合融合 ---------------- */
 
   /*
