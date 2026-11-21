@@ -218,6 +218,41 @@
         return L.bestOf(ctx, pool, function (n) { return L.omission(ctx, n); }, "cold");
       });
 
+    /* ---------- 新增：号码轴空档与动量（2026-11 补充） ---------- */
+
+    add("front", "结构", "连续空缺段中心",
+      "找出号码轴上连续 4 个以上、最近 20 期完全没出现的区间，推荐其中遗漏最久的号。",
+      function (ctx) {
+        if (ctx.seqs.length < 20) {
+          return L.best(ctx, function (n) { return L.omission(ctx, n); }, "cold");
+        }
+        var seen = {};
+        ctx.seqs.slice(-20).forEach(function (arr) { arr.forEach(function (n) { seen[n] = 1; }); });
+        var best = null, start = null, run = 0;
+        for (var n = ctx.min; n <= ctx.max; n++) {
+          if (!seen[n]) {
+            if (start === null) start = n;
+            run++;
+          } else {
+            if (run >= 4 && (!best || run > best.run)) best = { start: start, run: run };
+            start = null; run = 0;
+          }
+        }
+        if (run >= 4 && (!best || run > best.run)) best = { start: start, run: run };
+        if (!best) return L.best(ctx, function (n) { return L.omission(ctx, n); }, "cold");
+        var pool = ctx.cands.filter(function (n) { return n >= best.start && n < best.start + best.run; });
+        return L.bestOf(ctx, pool, function (n) { return L.omission(ctx, n); }, "cold");
+      });
+
+    add("front", "统计", "冷热动量",
+      "近 5 期出现次数减去近 30 期出现次数，找正在升温但还没被追热的号。",
+      function (ctx) {
+        var f5 = {}, f30 = {};
+        ctx.seqs.slice(-5).forEach(function (arr) { arr.forEach(function (n) { f5[n] = (f5[n] || 0) + 1; }); });
+        ctx.seqs.slice(-30).forEach(function (arr) { arr.forEach(function (n) { f30[n] = (f30[n] || 0) + 1; }); });
+        return L.best(ctx, function (n) { return (f5[n] || 0) * 6 - (f30[n] || 0); }, "recent");
+      });
+
     return list;
   }
 
