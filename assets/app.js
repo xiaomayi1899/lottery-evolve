@@ -15,7 +15,7 @@
   if (!Core || !F) return;
 
   var L = Core.Lib;
-  var VERSION = '1.5.0';
+  var VERSION = '1.6.0';
   var $view = document.getElementById('view');
   var $toast = document.getElementById('toast');
   var $tabbar = document.getElementById('tabbar');
@@ -41,6 +41,7 @@
     blacklist: null,
     lab: null,
     labZone: null,
+    labSort: 'z',
     /* null = 用户在页面上手动指定过；否则按彩种取默认最优窗口 */
     freqWindow: (function(){ var v = storage.get('sc.freq'); if (v === null || v === undefined) return undefined; if (v === 'all') return null; return Number(v); })(),
     period: 30,
@@ -298,7 +299,7 @@
         /* 复盘数据是可选增强，失败不影响主流程 */
         fetch('data/formula-blacklist.json', { cache: 'no-store' })
           .then(function (r) { return r.ok ? r.json() : null; })
-          .then(function (j) { if (j) { state.blacklist = j; cache = {}; if (state.data) render(); } })
+          .then(function (j) { if (j) { state.blacklist = j; cache = {}; formulaCache = {}; if (state.data) render(); } })
           .catch(function () {});
         fetch('data/review.json', { cache: 'no-store' })
           .then(function (r) { return r.ok ? r.json() : null; })
