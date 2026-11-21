@@ -419,6 +419,7 @@
     var lastDraw = game.draws[game.draws.length - 1] || {};
     var lastNumbers = lastDraw[zoneKey] || [];
     var repeat = repeatPolicy(cfg);
+    if (meta.repeatPenalty !== undefined) repeat = { penalty: meta.repeatPenalty, max: repeat.max };
     var totalWeight = 0;
     var byNumber = {};
     ctx.cands.forEach(function (n) { byNumber[n] = { n: n, votes: [], weight: 0 }; });
@@ -474,7 +475,7 @@
       var hitWeighted = 0;
       b.votes.forEach(function (d) { hitWeighted += d.rate * d.weight; });
       var dup = recCount[n] || 1;
-      var rawWeight = b.weight / Math.sqrt(dup);
+      var rawWeight = meta.dupCompress === false ? b.weight : b.weight / Math.sqrt(dup);
       if (freqWin !== 0) {
         var z = fz[n] || 0;
         var alpha = (meta.freqAlpha === undefined ? 0.15 : meta.freqAlpha);
@@ -603,7 +604,7 @@
       var rate = contexts.length ? hits / contexts.length : 0;
       /* 贝叶斯平滑：40 期样本太少，直接命中率容易过拟合；向随机命中率收缩 */
       var smoothed = (weightedHits + prior * 8) / (weightedTries + 8);
-      var weight = 0.3 + smoothed * 2.2;
+      var weight = opts.equalWeight ? 1 : (0.3 + smoothed * 2.2);
       if (salt) weight *= 0.78 + 0.44 * L.rand(L.hash(f.id + '|' + salt));
       details.push({
         id: f.id, name: f.name, cat: f.cat, desc: f.desc,
@@ -618,6 +619,8 @@
       salt: salt,
       freqWindow: opts.freqWindow === undefined ? 30 : opts.freqWindow,
       freqAlpha: opts.freqAlpha === undefined ? 0.15 : opts.freqAlpha,
+      repeatPenalty: opts.repeatPenalty,
+      dupCompress: opts.dupCompress,
     });
   }
 
