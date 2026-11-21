@@ -46,12 +46,6 @@ function bumpIssue(issue) {
   return String(n).padStart(s.length, '0');
 }
 
-function rankToScores(ranking) {
-  const out = {};
-  ranking.forEach((n, i) => { out[n] = ranking.length - i; });
-  return out;
-}
-
 const out = {
   version: 2,
   generatedAt: new Date().toISOString(),
