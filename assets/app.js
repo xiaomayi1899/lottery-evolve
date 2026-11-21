@@ -467,9 +467,10 @@
 
     var formulaNote;
     if (state.game === 'ssq' || state.game === 'dlt') {
-      formulaNote = '前区 ' + F.stats.front + ' 个公式 + 后区 ' + F.stats.back + ' 个公式，各自独立投票';
+      formulaNote = '前区 ' + formulasFor(state.game, 'front').length + ' 个公式 + 后区 ' +
+        formulasFor(state.game, 'back').length + ' 个公式，各自独立投票（已剔除同质与低效公式）';
     } else if (state.game === 'kl8') {
-      formulaNote = F.stats.front + ' 个号码公式独立投票';
+      formulaNote = formulasFor('kl8', 'main').length + ' 个号码公式独立投票（已剔除同质公式）';
     } else {
       formulaNote = '每位 ' + formulasFor(state.game, zones[0]).length + ' 个数字公式 × ' +
         zones.length + ' 位，各自独立投票';
@@ -1262,7 +1263,10 @@
     return '<div class="about-hero">' +
       '<div class="logo big-ball" style="width:64px;height:64px;border-radius:20px;font-size:32px">∑</div>' +
       '<h2>数彩实验室</h2>' +
-      '<p>双色球 / 大乐透 ' + F.stats.total + ' 个公式 · 3D/排列五每位 ' + F.stats.digit + ' 个数字公式 · 快乐8 ' + F.stats.front + ' 个号码公式<br>五个彩种 · 走势图与公式透明可查</p>' +
+      '<p>双色球 ' + (formulasFor('ssq', 'front').length + formulasFor('ssq', 'back').length) +
+      ' 个公式 · 大乐透 ' + (formulasFor('dlt', 'front').length + formulasFor('dlt', 'back').length) +
+      ' 个 · 3D/排列五每位 ' + formulasFor('fc3d', 'hundreds').length +
+      ' 个 · 快乐8 ' + formulasFor('kl8', 'main').length + ' 个<br>五个彩种 · 已剔除同质公式 · 走势图与公式透明可查</p>' +
       '</div>' +
 
       '<section class="card"><div class="card-title">它怎么工作</div><div class="prose">' +
@@ -1273,7 +1277,12 @@
       '</div></section>' +
 
       '<section class="card"><div class="card-title">公式体系</div><div class="prose">' +
-      '<p>双色球/大乐透 <b>' + F.stats.total + '</b> 个（前区 ' + F.stats.front + ' / 后区 ' + F.stats.back + '）；3D/排列五每位 <b>' + F.stats.digit + '</b> 个数字公式；快乐8 <b>' + F.stats.front + '</b> 个号码公式。覆盖 10 类方法：</p>' +
+      '<p>双色球 <b>' + (formulasFor('ssq', 'front').length + formulasFor('ssq', 'back').length) +
+      '</b> 个（前区 ' + formulasFor('ssq', 'front').length + ' / 后区 ' + formulasFor('ssq', 'back').length +
+      '）；大乐透 <b>' + (formulasFor('dlt', 'front').length + formulasFor('dlt', 'back').length) +
+      '</b> 个（前区 ' + formulasFor('dlt', 'front').length + ' / 后区 ' + formulasFor('dlt', 'back').length +
+      '）；3D/排列五每位 <b>' + formulasFor('fc3d', 'hundreds').length +
+      '</b> 个；快乐8 <b>' + formulasFor('kl8', 'main').length + '</b> 个。覆盖 10 类方法：</p>' +
       '<div class="chips" style="padding-top:8px">' + Object.keys(F.stats.categories).map(function (c) {
         return '<span class="chip">' + c + '<span class="n">' + F.stats.categories[c] + '</span></span>';
       }).join('') + '</div>' +
