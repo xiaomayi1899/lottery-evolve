@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updatedAt": "2026-11-19T05:23:40.547Z",
+ "updatedAt": "2026-11-21T02:36:10.012Z",
  "games": {
   "ssq": {
    "records": [
@@ -11019,36 +11019,36 @@
        30
       ],
       "alt": [
+       6,
        10,
        11,
-       12,
        14,
        20,
        22
       ],
       "pick": 6,
       "label": "红球",
-      "formulaCount": 157,
+      "formulaCount": 124,
       "top": [
        {
         "n": 30,
-        "weight": 4.7,
-        "votes": 26
-       },
-       {
-        "n": 8,
-        "weight": 2.5,
-        "votes": 16
-       },
-       {
-        "n": 24,
-        "weight": 2.4,
-        "votes": 8
+        "weight": 3.1,
+        "votes": 11
        },
        {
         "n": 4,
-        "weight": 2.3,
-        "votes": 8
+        "weight": 2.1,
+        "votes": 7
+       },
+       {
+        "n": 8,
+        "weight": 1.9,
+        "votes": 9
+       },
+       {
+        "n": 24,
+        "weight": 1.9,
+        "votes": 5
        },
        {
         "n": 2,
@@ -11059,20 +11059,15 @@
      },
      "back": {
       "numbers": [
-       11
+       12
       ],
       "alt": [
-       12
+       4
       ],
       "pick": 1,
       "label": "蓝球",
-      "formulaCount": 71,
+      "formulaCount": 54,
       "top": [
-       {
-        "n": 11,
-        "weight": 1.9,
-        "votes": 13
-       },
        {
         "n": 12,
         "weight": 1.5,
@@ -11080,8 +11075,8 @@
        },
        {
         "n": 1,
-        "weight": 1.3,
-        "votes": 8
+        "weight": 1.2,
+        "votes": 7
        },
        {
         "n": 10,
@@ -11089,14 +11084,19 @@
         "votes": 6
        },
        {
-        "n": 13,
-        "weight": 1.1,
-        "votes": 9
+        "n": 11,
+        "weight": 1,
+        "votes": 4
+       },
+       {
+        "n": 3,
+        "weight": 1,
+        "votes": 2
        }
       ]
      }
     },
-    "lockedAt": "2026-11-19T05:23:40.547Z"
+    "lockedAt": "2026-11-21T02:36:10.012Z"
    },
    "stats": {
     "n": 200,
@@ -22116,37 +22116,32 @@
     "zones": {
      "front": {
       "numbers": [
-       2,
        6,
        14,
        18,
+       25,
        29
       ],
       "alt": [
+       2,
        3,
        4,
-       10,
        12,
-       25
+       21
       ],
       "pick": 5,
       "label": "前区",
-      "formulaCount": 164,
+      "formulaCount": 125,
       "top": [
        {
-        "n": 14,
-        "weight": 2.5,
+        "n": 29,
+        "weight": 2.2,
         "votes": 10
        },
        {
-        "n": 29,
-        "weight": 2.4,
-        "votes": 12
-       },
-       {
         "n": 18,
-        "weight": 2.3,
-        "votes": 12
+        "weight": 2.2,
+        "votes": 11
        },
        {
         "n": 6,
@@ -22154,39 +22149,39 @@
         "votes": 10
        },
        {
-        "n": 2,
-        "weight": 2.1,
-        "votes": 23
+        "n": 14,
+        "weight": 1.9,
+        "votes": 6
+       },
+       {
+        "n": 25,
+        "weight": 1.9,
+        "votes": 6
        }
       ]
      },
      "back": {
       "numbers": [
-       1,
-       4
+       4,
+       12
       ],
       "alt": [
        5,
-       12
+       7
       ],
       "pick": 2,
       "label": "后区",
-      "formulaCount": 84,
+      "formulaCount": 59,
       "top": [
-       {
-        "n": 1,
-        "weight": 2.8,
-        "votes": 12
-       },
-       {
-        "n": 4,
-        "weight": 2.6,
-        "votes": 9
-       },
        {
         "n": 12,
         "weight": 2.5,
         "votes": 9
+       },
+       {
+        "n": 4,
+        "weight": 2.4,
+        "votes": 8
        },
        {
         "n": 7,
@@ -22194,14 +22189,19 @@
         "votes": 10
        },
        {
-        "n": 10,
-        "weight": 1.8,
+        "n": 1,
+        "weight": 2,
         "votes": 7
+       },
+       {
+        "n": 9,
+        "weight": 1.8,
+        "votes": 4
        }
       ]
      }
     },
-    "lockedAt": "2026-11-19T05:23:40.547Z"
+    "lockedAt": "2026-11-21T02:36:10.012Z"
    },
    "stats": {
     "n": 200,
@@ -33266,16 +33266,11 @@
       ],
       "pick": 1,
       "label": "十位",
-      "formulaCount": 11,
+      "formulaCount": 5,
       "top": [
        {
         "n": 5,
-        "weight": 1,
-        "votes": 5
-       },
-       {
-        "n": 8,
-        "weight": 0.8,
+        "weight": 0.6,
         "votes": 2
        },
        {
@@ -33289,32 +33284,37 @@
         "votes": 1
        },
        {
-        "n": 7,
+        "n": 8,
         "weight": 0.5,
         "votes": 1
+       },
+       {
+        "n": 2,
+        "weight": 0,
+        "votes": 0
        }
       ]
      },
      "units": {
       "numbers": [
-       4
+       1
       ],
       "alt": [
        2
       ],
       "pick": 1,
       "label": "个位",
-      "formulaCount": 11,
+      "formulaCount": 8,
       "top": [
-       {
-        "n": 4,
-        "weight": 1,
-        "votes": 4
-       },
        {
         "n": 1,
         "weight": 0.9,
         "votes": 4
+       },
+       {
+        "n": 4,
+        "weight": 0.7,
+        "votes": 2
        },
        {
         "n": 2,
@@ -33322,19 +33322,19 @@
         "votes": 1
        },
        {
-        "n": 7,
+        "n": 5,
         "weight": 0.5,
         "votes": 1
        },
        {
-        "n": 5,
-        "weight": 0.5,
-        "votes": 1
+        "n": 0,
+        "weight": 0,
+        "votes": 0
        }
       ]
      }
     },
-    "lockedAt": "2026-11-19T05:23:40.547Z"
+    "lockedAt": "2026-11-21T02:36:10.012Z"
    },
    "stats": {
     "n": 200,
@@ -45779,21 +45779,21 @@
       ],
       "pick": 10,
       "label": "号码",
-      "formulaCount": 36,
+      "formulaCount": 32,
       "top": [
        {
         "n": 58,
-        "weight": 2.4,
-        "votes": 12
-       },
-       {
-        "n": 55,
-        "weight": 1.3,
-        "votes": 4
+        "weight": 2.1,
+        "votes": 10
        },
        {
         "n": 38,
         "weight": 1.2,
+        "votes": 2
+       },
+       {
+        "n": 55,
+        "weight": 0.9,
         "votes": 2
        },
        {
@@ -45809,7 +45809,7 @@
       ]
      }
     },
-    "lockedAt": "2026-11-19T05:23:40.547Z"
+    "lockedAt": "2026-11-21T02:36:10.012Z"
    },
    "stats": {
     "n": 200,
@@ -62836,17 +62836,12 @@
       ],
       "pick": 1,
       "label": "万位",
-      "formulaCount": 16,
+      "formulaCount": 9,
       "top": [
        {
         "n": 2,
-        "weight": 1.5,
-        "votes": 5
-       },
-       {
-        "n": 6,
-        "weight": 1.4,
-        "votes": 5
+        "weight": 1.1,
+        "votes": 3
        },
        {
         "n": 4,
@@ -62860,6 +62855,11 @@
        },
        {
         "n": 7,
+        "weight": 0.5,
+        "votes": 1
+       },
+       {
+        "n": 9,
         "weight": 0.5,
         "votes": 1
        }
@@ -62874,7 +62874,7 @@
       ],
       "pick": 1,
       "label": "千位",
-      "formulaCount": 14,
+      "formulaCount": 10,
       "top": [
        {
         "n": 6,
@@ -62883,13 +62883,8 @@
        },
        {
         "n": 5,
-        "weight": 1,
-        "votes": 4
-       },
-       {
-        "n": 0,
-        "weight": 0.8,
-        "votes": 3
+        "weight": 0.7,
+        "votes": 2
        },
        {
         "n": 9,
@@ -62900,6 +62895,11 @@
         "n": 7,
         "weight": 0.5,
         "votes": 1
+       },
+       {
+        "n": 3,
+        "weight": 0.5,
+        "votes": 1
        }
       ]
      },
@@ -62908,11 +62908,11 @@
        2
       ],
       "alt": [
-       9
+       3
       ],
       "pick": 1,
       "label": "百位",
-      "formulaCount": 8,
+      "formulaCount": 6,
       "top": [
        {
         "n": 2,
@@ -62925,11 +62925,6 @@
         "votes": 2
        },
        {
-        "n": 9,
-        "weight": 0.6,
-        "votes": 1
-       },
-       {
         "n": 0,
         "weight": 0.5,
         "votes": 1
@@ -62938,25 +62933,25 @@
         "n": 1,
         "weight": 0.5,
         "votes": 1
+       },
+       {
+        "n": 4,
+        "weight": 0,
+        "votes": 0
        }
       ]
      },
      "pos4": {
       "numbers": [
-       3
+       4
       ],
       "alt": [
-       4
+       3
       ],
       "pick": 1,
       "label": "十位",
-      "formulaCount": 11,
+      "formulaCount": 6,
       "top": [
-       {
-        "n": 3,
-        "weight": 1.2,
-        "votes": 5
-       },
        {
         "n": 4,
         "weight": 1,
@@ -62964,8 +62959,13 @@
        },
        {
         "n": 0,
-        "weight": 0.8,
-        "votes": 2
+        "weight": 0.5,
+        "votes": 1
+       },
+       {
+        "n": 3,
+        "weight": 0.5,
+        "votes": 1
        },
        {
         "n": 8,
@@ -62981,27 +62981,22 @@
      },
      "pos5": {
       "numbers": [
-       5
+       1
       ],
       "alt": [
-       4
+       2
       ],
       "pick": 1,
       "label": "个位",
-      "formulaCount": 11,
+      "formulaCount": 7,
       "top": [
-       {
-        "n": 5,
-        "weight": 1.1,
-        "votes": 4
-       },
        {
         "n": 1,
         "weight": 0.9,
         "votes": 4
        },
        {
-        "n": 4,
+        "n": 5,
         "weight": 0.8,
         "votes": 2
        },
@@ -63014,11 +63009,16 @@
         "n": 3,
         "weight": 0,
         "votes": 0
+       },
+       {
+        "n": 7,
+        "weight": 0,
+        "votes": 0
        }
       ]
      }
     },
-    "lockedAt": "2026-11-19T05:23:40.547Z"
+    "lockedAt": "2026-11-21T02:36:10.012Z"
    },
    "stats": {
     "n": 200,
